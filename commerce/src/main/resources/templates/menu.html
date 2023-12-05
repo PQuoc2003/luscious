@@ -181,7 +181,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" th:each="pizza_product : ${pizza_products}">
                                                             <div class="P_itmesbox">
-                                                                <div class="PT_image"><img th:src="@{shome/images/pizza_img2.jpg}" class="absoImg" alt=""></div>
+                                                                <div class="PT_image"><img th:src="${pizza_product.getImage()}" class="absoImg" alt=""></div>
                                                                 <div class="PT_dscr">
                                                                     <h3 class="PT_title" th:text ="${pizza_product.getName()}"></h3>
                                                                     <p class="PT_dtls" th:text ="${pizza_product.getDescription()}"></p>
@@ -206,7 +206,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" th:each="burger_product : ${burger_products}">
                                                             <div class="P_itmesbox">
-                                                                <div class="PT_image"><img th:src="@{/shome/images/pro_img2.jpg}" class="absoImg" alt=""></div>
+                                                                <div class="PT_image"><img th:src="${burger_product.getImage()}" class="absoImg" alt=""></div>
                                                                 <div class="PT_dscr">
                                                                     <h3 class="PT_title" th:text ="${burger_product.getName()}"></h3>
                                                                     <p class="PT_dtls" th:text ="${burger_product.getDescription()}">
@@ -234,7 +234,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" th:each="drink_product : ${drink_products}">
                                                             <div class="P_itmesbox">
-                                                                <div class="PT_image"><img th:src="@{/shome/images/pro_img5.jpg}" class="absoImg" alt=""></div>
+                                                                <div class="PT_image"><img th:src="${drink_product.getImage()}" class="absoImg" alt=""></div>
                                                                 <div class="PT_dscr">
                                                                     <h3 class="PT_title" th:text ="${drink_product.getName()}"></h3>
                                                                     <p class="PT_dtls" th:text ="${drink_product.getDescription()}">

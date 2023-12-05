@@ -77,7 +77,12 @@
                         <h1 class="page_title">Manage Product</h1>
                     </div>
                 </div>
+
+
             </div>
+
+
+
             <div class="device">
                 <nav class="main-nav" id="main-nav">
                     <div class="logo">
@@ -125,7 +130,19 @@
                                 <h2 class="title">Manage Product</h2>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <!--            Filter-->
+                        <div style="text-align: center; margin: auto; width: 50%;">
+                            <label for="productType"><b>Filter -  Type</b></label>
+                            <select id="productType" onchange="getProduct(this.value)" class="form-control">
+                                <option value="" disabled selected style="display: none">Select a Type</option>
+                                <option value="PIZZA">Pizza</option>
+                                <option value="BURGER">Burger</option>
+                                <option value="DRINK">Drink</option>
+                            </select>
+                            <br>
+                        </div>
+
+                        <div class="col-md-12" style="margin-top:20px">
                             <div class="cart_list">
                                 <ul class="inner_cartlist">
                                     <li class="header">
@@ -141,8 +158,8 @@
                                                 <h4>Price</h4></div>
                                         </div>
                                     </li>
-
-                                    <li class="rows" th:each = "product : ${products}">
+                                    <div id="listProduct">
+                                    <li class="rows" th:each = "product : ${products}" >
                                         <div class="edit">
                                             <div class="edit_div">
                                                 <h4>&nbsp;</h4>
@@ -150,7 +167,7 @@
                                         </div>
                                         <div class="pro_name">
                                             <div class="products">
-                                                <div class="pro_img"><img th:src="@{/shome/images/cart1.png}" class="absoImg" alt=""></div>
+                                                <div class="pro_img"><img th:src="${product.image}" class="absoImg" alt=""></div>
                                                 <div class="pro_descr">
                                                     <h3 class="pro_title"><a href="#" class="trans" th:text = "${product.getName()}"></a></h3>
                                                     <p class="pro_dtls" th:text = "${product.getDescription()}"></p>
@@ -170,7 +187,7 @@
                                             <h4 th:text = "'$ ' + ${product.getPrice()}"></h4></div>
                                     </li>
 
-                                    
+                                    </div>
                                 </ul>
                                 
                             </div>
@@ -261,6 +278,48 @@
     <script th:src="@{/shome/js/custome.js}" defer></script>
     <script th:src="@{/shome/js/slick.js}" defer></script>
     <script th:src="@{/shome/js/jquery.validate.min.js}" defer></script>
+    <script>
+        function getProduct(typeProduct){
+            fetch("/admin/manage_fetch?typeProduct="+typeProduct)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    var html = "";
+
+                    data.forEach(product => {
+                        html +=
+                            `<li className="rows"  >`+
+                            `<div class="edit">`+
+                                `<div class="edit_div">`+
+                                  `  <h4>&nbsp;</h4>`+
+                               ` </div>`+
+                          `  </div>`+
+                           ` <div class="pro_name">`+
+                              `  <div class="products">`+
+                                  `  <div class="pro_img"><img src="${product.image}" class="absoImg" alt=""></div>`+
+                                    `<div class="pro_descr">`+
+                                       ` <h3 class="pro_title"><a href="#" class="trans" >${product.name}</a></h3>`+
+                                       ` <p class="pro_dtls" >${product.description}</p>`+
+                                       ` <p class="size">Type : + ${product.type}</p>`+
+                                    `</div>`+
+                                `</div>`+
+                         `   </div>`+
+                           ` <div class="pro_qty">`+
+                               ` <h4 class="edit_div"><a href="/admin/remove/${product.id}" onclick="return confirm('Are you sure to delete this product?')" class="trans del" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></a></h4></div> `     +
+                            `<div class="pro_price">`+
+                                `<h4 class="edit_div"><a href="/admin/edit/${product.id}" class="trans edit_new" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></h4>`+
+                            `</div>`+
+                            `<div class="pro_total">`+
+                                `<h4>$ ${product.price}</h4></div>`+
+                            `</li>`
+
+                    })
+                    $('#listProduct').html("");
+                    $('#listProduct').html(html);
+                })
+                .catch(error => console.error('Error getting:', error));
+        }
+    </script>
 </body>
 
 

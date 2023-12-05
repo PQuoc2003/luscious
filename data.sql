@@ -1,15 +1,19 @@
 
-INSERT INTO `product` (`id`, `description`, `name`, `price`, `type`) VALUES
-(1, 'Pizza làm ở Ý, hương vị thơm ngon', 'Pizza Ý', 20, 'PIZZA'),
-(5, 'Pizza  với nhiều lớp phô mai', 'Pizza Phô Mai', 25, 'PIZZA'),
-(6, 'Thức uống quốc dân', 'Coca Cola', 5, 'DRINK'),
-(7, 'Pizza với gà', 'Pizza Gà', 25, 'PIZZA'),
-(8, 'Pizza bò ngon lắm , thử ngay', 'Pizza Bò', 25, 'PIZZA'),
-(9, 'Ngon lắm', 'Pepsi', 5, 'DRINK'),
-(10, 'Nước cam cũng ngon', 'Fanta', 7, 'DRINK'),
-(11, 'Burger bò ngon lắm', 'Burger Bò', 15, 'BURGER'),
-(12, 'Burger gấp đôi vị ngon', 'Burger Bò 2 lớp', 20, 'BURGER'),
-(13, 'Nước cam ngon lắm', 'Fanta', 10, 'DRINK');
+INSERT INTO `product` (`id`, `description`, `image`, `name`, `price`, `type`) VALUES
+(1, 'Pizza làm ở Ý, hương vị thơm ngon', '/images/cart1.png', 'Pizza Ý', 20, 'PIZZA'),
+(5, 'Pizza  với nhiều lớp phô mai', '/images/cart1.png', 'Pizza Phô Mai', 25, 'PIZZA'),
+(6, 'Thức uống quốc dân', '/images/pro_img5.jpg', 'Coca Cola', 5, 'DRINK'),
+(7, 'Pizza với gà', '/images/cart1.png', 'Pizza Gà', 25, 'PIZZA'),
+(8, 'Pizza bò ngon lắm , thử ngay', '/images/cart1.png', 'Pizza Bò', 25, 'PIZZA'),
+(9, 'Ngon lắm', '/images/pepsi.jpg', 'Pepsi', 5, 'DRINK'),
+(10, 'Nước cam cũng ngon', '/images/fanta.jpg', 'Fanta plus', 7, 'DRINK'),
+(11, 'Burger bò ngon lắm', '/images/burger_bo.jpg', 'Burger Bò', 15, 'BURGER'),
+(12, 'Burger gấp đôi vị ngon', '/images/burger_bo.jpg', 'Burger Bò 2 lớp', 20, 'BURGER'),
+(13, 'Nước cam ngon lắm', '/images/fanta.jpg', 'Fanta', 10, 'DRINK'),
+(20, 'Pizza từ Ý, rất ngon', '/images/cart1.png', 'Pizza Ý', 20, 'PIZZA'),
+(21, 'Thức uống quốc dân', '/images/pro_img5.jpg', 'Coca Cola', 5, 'DRINK'),
+(22, 'Ngon lắm', '/images/Burgers.jpg', 'Burger Mỹ', 20, 'BURGER'),
+(23, 'Ngon lắm', '/images/Burgers.jpg', 'Burger Bò', 20, 'BURGER');
 
 -- --------------------------------------------------------
 

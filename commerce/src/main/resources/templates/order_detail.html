@@ -171,7 +171,7 @@
                                     
                                 </ul>
                                 
-                                <div class="checkout" th:if = "'[ROLE_ADMIN]' == ${role} " >
+                                <div class="checkout" th:if = "${orderDetailAdmin} != null" >
                                     <p class="order_dscr">Order with Delivery</p>
                                     <p class="order_total">Total : <bold style = "color: red" th:text = "${order.getTotal()}"></bold></p>
                                     <div class="btn_checkout">
@@ -180,10 +180,10 @@
                                     </div>
                                 </div>
 
-                                <div class="checkout" th:if = "'[ROLE_ADMIN]' != ${role} " >
+                                <div class="checkout" th:if = "${orderDetailAdmin} == null" >
                                     <p class="order_dscr">Goods received:</p>
                                     <p class="order_total">Total : <bold style = "color: red" th:text = "${order.getTotal()}"></bold></p>
-                                    <div class="btn_checkout">
+                                    <div class="btn_checkout" th:if = "${!order.getStatus()}">
                                         <a th:href="@{/order/orderapprove/{orderID}(orderID=${order.getId()})}" class="trans red_btn squre-btn hvr-ripple-out" title="Delivery">Received</a>
                                     </div>
                                 </div>

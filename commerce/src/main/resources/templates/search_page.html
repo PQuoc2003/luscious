@@ -166,7 +166,7 @@
                                             <ul>
                                                 <li>
                                                     <div class="card">
-                                                        <div class="C_img"> <img th:src="@{shome/images/pro_img1.jpg}" class="absoImg" alt=""> </div>
+                                                        <div class="C_img" style="width: 100%;height: 100%"> <img th:src="${product.getImage()}" class="absoImg" alt=""> </div>
                                                         <div class="C_desc">
                                                             <h3 class="title" th:text ="${product.getName()}"></h3>
                                                             <p class="desc" th:text ="${product.getDescription()}"></p>

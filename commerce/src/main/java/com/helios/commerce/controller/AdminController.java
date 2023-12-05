@@ -6,14 +6,17 @@ import com.helios.commerce.services.CartService;
 import com.helios.commerce.services.OrderDetailService;
 import com.helios.commerce.services.OrdersService;
 import com.helios.commerce.services.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,11 +56,22 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/add/success" , method = RequestMethod.POST)
     public String addProduct(
+            @RequestParam("productImage") MultipartFile productImage,
             @RequestParam("typesOfPro") String types,
             @RequestParam("name") String name,
             @RequestParam("des") String des,
-            @RequestParam("price") double price
-    ){
+            @RequestParam("price") double price,
+            Model model
+    ) throws IOException {
+        String fileName = productImage.getOriginalFilename();
+        String urlFile = "/images/"+ fileName;
+        if (fileName.contains("..")) {
+            model.addAttribute("error", "Invalid file name.");
+            return "error";
+        }
+
+        String UPLOAD_DIRECTORY = System.getProperty("user.dir")+"/src/main/resources/static/images/" ;
+        productImage.transferTo(new File(String.valueOf(Paths.get(UPLOAD_DIRECTORY,fileName))));
 
         Type typeOfProduct = switch (types) {
             case "pizza" -> Type.PIZZA;
@@ -65,20 +79,41 @@ public class AdminController {
             default -> Type.DRINK;
         };
 
-        Product product = new Product(name, price, des, typeOfProduct);
+        Product product = new Product(urlFile,name, price, des, typeOfProduct);
 
         productService.addProduct(product);
         return "redirect:/admin";
     }
 
     @RequestMapping(value = "/admin/manage")
-    public String getManagePage(Model model, Principal principal){
-
+    public String getManagePage(
+                                Model model,
+                                Principal principal){
         Iterable<Product> products = productService.findAll();
         model.addAttribute("products", products);
 
         init(model,principal);
         return "manage_product";
+    }
+
+    @RequestMapping(value = "/admin/manage_fetch")
+    @ResponseBody
+    public ResponseEntity<Iterable> getProductByType(
+            @RequestParam("typeProduct") String typeProduct){
+
+        try {
+            if(typeProduct.equals("PIZZA")){
+                return ResponseEntity.ok(productService.findByType(Type.PIZZA));
+            }
+            else if(typeProduct.equals("BURGER")){
+                return ResponseEntity.ok(productService.findByType(Type.BURGER));
+            }
+            else{
+                return ResponseEntity.ok(productService.findByType(Type.DRINK));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @RequestMapping(value = "/admin/remove/{product_id}")
@@ -134,11 +169,25 @@ public class AdminController {
     @RequestMapping(value = "/admin/update/{product_id}")
     public String updateProduct(
             @PathVariable String product_id,
+            @RequestParam("productImage") MultipartFile productImage,
             @RequestParam("typesOfPro") String types,
             @RequestParam("name") String name,
             @RequestParam("des") String des,
-            @RequestParam("price") double price
-            ){
+            @RequestParam("price") double price,
+            Model model
+            ) throws IOException {
+
+        String urlFile = "";
+        if(productImage != null && productImage.getSize() > 0){
+            String fileName = productImage.getOriginalFilename();
+            urlFile = "/images/"+ fileName;
+            if (fileName.contains("..")) {
+                model.addAttribute("error", "Invalid file name.");
+                return "error";
+            }
+            String UPLOAD_DIRECTORY = System.getProperty("user.dir")+"/src/main/resources/static/images/" ;
+            productImage.transferTo(new File(String.valueOf(Paths.get(UPLOAD_DIRECTORY,fileName))));
+        }
 
 
         Type typeOfProduct = switch (types) {
@@ -147,19 +196,15 @@ public class AdminController {
             default -> Type.DRINK;
         };
 
-        Product product = new Product(Long.parseLong(product_id), name, price, des, typeOfProduct);
-
+        Product product = new Product(Long.parseLong(product_id),urlFile, name, price, des, typeOfProduct);
         productService.addProduct(product);
-
         return "redirect:/admin/manage";
-
 
     }
 
     @RequestMapping(value = "/admin/revenue")
     public String getRevenue(Model model, Principal principal){
         init(model,principal);
-
         Iterable<Product> products = productService.findAll();
 
         List<RevenueDAO> revenueDAOList = new ArrayList<>();
@@ -169,9 +214,7 @@ public class AdminController {
         for(Product product : products){
 
             int quantity = orderDetailService.countByProduct(product);
-
             RevenueDAO revenueDAO = new RevenueDAO(product, quantity, product.getPrice()*quantity);
-
             revenueDAOList.add(revenueDAO);
 
             totalRevenue += product.getPrice()*quantity;
@@ -237,8 +280,10 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/orderdetail/{order_id}")
     public String detailOrder(@PathVariable String order_id, Model model, Principal principal){
+
         init(model,principal);
 
+        model.addAttribute("orderDetailAdmin", "true");
         Iterable<Orders> orders = ordersService.findOrdersById(Long.parseLong(order_id));
 
         if(!orders.iterator().hasNext()){
@@ -248,7 +293,6 @@ public class AdminController {
         Orders order = orders.iterator().next();
 
         Iterable<OrderDetail> orderDetails = orderDetailService.findByOrders(order);
-
 
         model.addAttribute("orderDetails", orderDetails);
 

@@ -47,6 +47,7 @@ public class UserConfiguration {
                         author.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 .requestMatchers("/login","/do-register", "/home/**", "/login/**", "/register", "/shome/**","/search","/menu").permitAll()
                                 .requestMatchers("/admin/**").hasAuthority(String.valueOf(Role.ROLE_ADMIN))
+                                .requestMatchers("/").hasAuthority("customer")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(login ->

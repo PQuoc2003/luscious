@@ -19,6 +19,4 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
 
     Iterable<OrderDetail> findAllByOrders(Orders orders);
 
-    int countByProduct(Product product);
-
 }

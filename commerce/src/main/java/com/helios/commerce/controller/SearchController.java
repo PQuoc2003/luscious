@@ -32,6 +32,7 @@ public class SearchController {
         Iterable<Product> products = productService.searchProduct(keyword);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         String role = authentication.getAuthorities().toString();
 
         model.addAttribute("role", role);

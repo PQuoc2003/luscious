@@ -25,7 +25,22 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    public Product(String name, Double price, String description, Type type) {
+    @Column
+    private String image;
+
+
+
+    public Product(String image, String name, Double price, String description, Type type) {
+        this.image = image;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.type = type;
+    }
+
+    public Product(Long id,String image, String name, Double price, String description, Type type) {
+        this.id = id;
+        this.image = image;
         this.name = name;
         this.price = price;
         this.description = description;

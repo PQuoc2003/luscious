@@ -150,7 +150,7 @@
 
                                         <div class="pro_name">
                                             <div class="products">
-                                                <div class="pro_img"><img th:src="@{/shome/images/cart1.png}" class="absoImg" alt=""></div>
+                                                <div class="pro_img"><img th:src="${revenue.getProduct().getImage()}" class="absoImg" alt=""></div>
                                                 <div class="pro_descr">
                                                     <h3 class="pro_title"><a href="#" class="trans" th:text = "${revenue.getProduct().getName()}"></a></h3>
                                                     <p class="pro_dtls" th:text = "${revenue.getProduct().getDescription()}"></p>

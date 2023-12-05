@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          rel="stylesheet"
+  />
+  <!-- Google Fonts -->
+  <link
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          rel="stylesheet"
+  />
+  <!-- MDB -->
+  <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css"
+          rel="stylesheet"
+  />
+</head>
+<body>
+<!--Main Navigation-->
+<header>
+  <!-- Jumbotron -->
+  <div class="p-3 text-center bg-white border-bottom">
+    <div class="container">
+      <div class="row gy-3">
+        <!-- Left elements -->
+        <div class="col-lg-2 col-sm-4 col-4">
+          <a href="/" class="float-start">
+            PHONE STORE
+          </a>
+        </div>
+        <!-- Left elements -->
+
+        <!-- Center elements -->
+        <div class="order-lg-last col-lg-5 col-sm-8 col-8">
+          <div class="d-flex float-end" >
+            <a href="/order" class="border rounded py-1 px-3 nav-link d-flex align-items-center position-relative">
+              <i class="fa fa-truck"></i>
+              <p class="d-none d-md-block mb-0">Oder</p>
+              <span th:if="${orderItems != null}" th:text="${#lists.size(orderItems)}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger"></span>
+              <span th:unless="${orderItems != null}" th:text="0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger"></span>
+            </a>
+          </div>
+          <div class="d-flex float-end" style="margin-right: 15px">
+            <a th:if="${user != null}" href="/logout" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"> <i class="fas fa-user-alt m-1 me-md-2"></i><p class="d-none d-md-block mb-0">Sign out</p> </a>
+            <a th:unless="${user != null}" th:href="'/login'" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"> <i class="fas fa-user-alt m-1 me-md-2"></i><p class="d-none d-md-block mb-0">Sign in</p> </a>
+            <a href="/cart" class="border rounded py-1 px-3 nav-link d-flex align-items-center position-relative">
+              <i class="fas fa-shopping-cart m-1 me-md-2"></i>
+              <p class="d-none d-md-block mb-0">My cart</p>
+              <span th:if="${cartItems != null}" th:text="${#lists.size(cartItems)}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger"></span>
+              <span th:unless="${cartItems != null}" th:text="0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger"></span>
+            </a>
+          </div>
+        </div>
+        <!-- Center elements -->
+
+        <!-- Right elements -->
+        <div class="col-lg-5 col-md-12 col-12">
+          <div class="input-group float-center">
+            <div class="form-outline">
+              <input type="search" id="form1" class="form-control" />
+              <label class="form-label" for="form1">Search</label>
+            </div>
+            <button type="button" class="btn btn-primary shadow-0">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Right elements -->
+      </div>
+    </div>
+  </div>
+  <div class="bg-primary text-white py-5">
+    <div class="container py-5">
+      <h1>
+        Best products & <br />
+        brands in our store
+      </h1>
+      <p>
+        Trendy Products, Factory Prices, Excellent Service
+      </p>
+      <a href="/shop">
+        <button type="button" class="btn btn-light shadow-0 text-primary pt-2 border border-white">
+          <span class="pt-1">Shop All</span>
+        </button>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container my-5">
+    <h1>Error Page</h1>
+  </div>
+  <div th:if="${error}" class="alert alert-danger" role="alert" style="text-align: center">
+    <p th:text="${error}"></p>
+  </div>
+</section>
+
+
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"
+></script>
+</body>
+</html>

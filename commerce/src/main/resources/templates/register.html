@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from glorywebsdemo.com/ThemeForest/CraveOrdering/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 23 Nov 2023 16:27:08 GMT -->
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" th:href="@{shome/images/favicon.ico}" type="image/x-icon">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+    <title>Register | Order Online Fast Food & Pizza</title>
+    <!-- Fonts Here-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" >
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i,800" rel="stylesheet" >
+    <!-- Fonts here-->
+
+    <!-- Style Here -->
+    <link rel="stylesheet" th:href="@{shome/css/slick.css}" >
+    <link rel="stylesheet" th:href="@{shome/css/style.css}" >
+    <link rel="stylesheet" th:href="@{shome/css/font-awesome.min.css}">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" th:href="@{shome/css/bootstrap.min.css}" >
+
+    <!-- JS -->
+    <script th:src="@{shome/js/popper.min.js}" defer></script>
+    <script th:src="@{shome/js/jquery.min.js}" defer></script>
+    <script th:src="@{shome/js/bootstrap.min.js}" defer></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Header Start Here -->
+        <header id="Header">
+            <div class="main_header inner_page">
+                <div class="top_nav" id="navbar">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="logo">
+                                    <a href="index.html" title="Crave Ordering"><img th:src="@{shome/images/logo.png}" alt="Crave Ordering"></a>
+                                </div>
+                                <div class="nav_manu">
+                                    <div class="Menu_list">
+                                        <ul class="menu">
+                                            <li><a href="index.html" class="trans hvr-underline-from-left">Home</a></li>
+                                            <li><a href="about.html" class="trans">About</a></li>
+                                            <li><a href="menu.html" class="trans">Order</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="Cart">
+                                        <a href="cart.html" title="Cart">
+                                            <span class="Cart_count">Cart : (0) $00.00</span>
+                                            <!-- <i class="fa fa-shopping-cart" aria-hidden="true"></i> -->
+                                            <img class="cart_img" th:src="@{shome/images/cart_1.png}" alt="cart_1">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="burger" class="open-main-nav">
+                    <span class="burger"></span>
+                </button>
+                <div class="H_banner">
+                    <div class="main_pitch">
+                        <h1 class="page_title">register</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="device">
+                <nav class="main-nav" id="main-nav">
+                    <div class="logo">
+                        <a th:href="@{/home}" title="Crave Ordering"><img th:src="@{shome/images/logoBlack.png}" alt="Crave Ordering"></a>
+                    </div>
+                    <ul>
+                        <li><a th:href="@{/home}">Home</a></li>
+                        <li><a th:href="@{/menu}">Menu</a></li>
+                        <li><a th:href="@{/login}">Sign In</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <!-- Header Start Here -->
+
+        <!-- breadcum section -->
+
+        <div class="breadcum">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="main_breadcum">
+                            <ul>
+                                <li><a href="index.html" class="trans" title="Home">Home</a></li>
+                                <li>Register</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- breadcum section -->
+        <!-- Our login section -->
+        <section id="login">
+            <div class="login_section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main_login d-flex justify-content-center">
+                                <div class="login_left col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                                    <div class="login_box">
+                                        <h2 class="title d-flex justify-content-center">Register</h2>
+<!--                                        Update form-->
+                                        <form th:action = "@{/do-register}" method="POST" th:object = "${userDTO}">
+                                            <div class="form-group">
+                                                <label >Username</label>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text">
+                                                        <i class="fa fa-user"></i>
+                                                      </span>
+                                                    </div>
+                                                    <input id="name" type="text"  class="form-control" placeholder="Username" name="username" th:field = "*{username}" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label >Password</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                          <span class="input-group-text">
+                                                            <i class="fa fa-lock"></i>
+                                                          </span>
+                                                        </div>
+                                                        <input type="password" required class="form-control" placeholder="Password" name="password"  th:field = "*{password}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label >Confirm Password</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                          <span class="input-group-text">
+                                                            <i class="fa fa-lock"></i>
+                                                          </span>
+                                                        </div>
+                                                        <input type="password"  required class="form-control" placeholder="Password" name="confirm" th:field = "*{confirmPassword}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" style="text-align: center">
+                                                    <div th:if = "${success}">
+                                                        <p class = "alert alert-success" th:text = "${success}"></p>
+                                                    </div>
+                                                    <div th:if = "${error}">
+                                                        <p class = "alert alert-danger" th:text = "${error}"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" style="text-align: center">
+                                                    <button class="btn btn-success px-5" type="submit">Register</button>
+                                                </div>
+                                                <div class="form-group" style="text-align: center">
+                                                    <p>Already have an account? <a href="/login">Login now!</a></p>
+                                                </div>
+                                            </div>
+                                        </form>
+<!--                                        Old form-->
+<!--                                        <form method="post" id="loginform" th:action="@{/register}">-->
+<!--                                            <div class="login_form">-->
+<!--                                                <ul>-->
+<!--                                                    <li>-->
+<!--                                                        <label for="EmailAddress">User name</label>-->
+<!--                                                        <input class="form-control" id="EmailAddress" name="username" title="Username" type="text">-->
+<!--                                                    </li>-->
+<!--                                                    <li>-->
+<!--                                                        <label for="Password">Password</label>-->
+<!--                                                        <input class="form-control" title="Password" id="Password" name="password" type="password">-->
+<!--                                                    </li>-->
+
+<!--                                                    <li class="d-flex justify-content-center">-->
+<!--                                                        <button type="submit" class="loginbutton red_btn trans squre-btn hvr-ripple-out" name="Login">Register</button>-->
+<!--                                                    </li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </form>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Our login section -->
+        <!-- Quick Order Section -->
+        <section>
+            <div class="quick_order">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main_quickorder">
+                                <h3 class="title">Call Us for Quick Order</h3>
+                                <div class="cntct typewriter-effect"><span class="call_desk"><a href="tel:+01234567890" id="typewriter_num"></a></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Quick Order Section -->
+        <!-- Footer Section here -->
+        <footer>
+            <div class="main_footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="M_footer">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 quick_links">
+                                    <div class="title">Quick Links</div>
+                                    <div class="main_cnt">
+                                        <ul>
+                                            <li><a th:href="@{/login}" class="trans" title="Login">Login</a></li>
+                                            <li><a th:href="@{/register}" class="trans" title="Register">Register</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 location">
+                                    <div class="title">Our Location</div>
+                                    <div class="main_cnt"> <span class="address"><a href="#">Trường Đại học Tôn Đức Thắng</a></span> <span class="time1">Mon - Fri: 08:00 am - 10:00 pm</span> <span class="time2">Sat - Sun: 10:00 am - 11:00 pm<strong></strong></span> <span class="conact"><a href="tel:+01234567890">+01 (234) 56 56 789</a></span> </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 subscribe">
+                                    <div class="title">Subscribe Us</div>
+                                    <div class="main_cnt">
+                                        <p class="sbcr_label">Subscribe to the La Vie newsletter to
+                                            <br> get regular update about offers</p>
+                                        <form method="post" id="subscribeform" th:action="@{/}">
+                                            <div class="sbcrb_input">
+                                                <input type="text" name="subscribeemail" class="form-control" placeholder="Enter your email">
+                                                <button class="subscribebutton send" name="getbutton" type="submit">
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </footer>
+        <!-- Footer Section here -->
+
+        <!-- Footer Section here -->
+
+    </div>
+    <!-- JS Here -->
+    <script th:src="@{shome/js/custome.js}" defer></script>
+    <script th:src="@{shome/js/slick.js}" defer></script>
+    <script th:src="@{shome/js/jquery.validate.min.js}" defer></script>
+    <!-- JS Here -->
+</body>
+
+</html>
